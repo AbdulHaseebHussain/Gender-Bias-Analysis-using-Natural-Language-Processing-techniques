@@ -2,13 +2,14 @@ import nltk
 
 from nltk.corpus import names
 import random
+import pickle
 
 class GenderClassify:
 
 	def genderFeatures(self, word):
 		return {"last letter":word[-1]}
 
-	def genderClasify(self):
+	def genderClassify(self, nameToFindGender):
 
 		labeledNames = ([(name, "male") for name in names.words("male.txt")]+
 			[(name, "female") for name in names.words("female.txt")])
@@ -22,19 +23,25 @@ class GenderClassify:
 		train_set, test_set = feature_sets[100:], feature_sets[:100]
 
     # Train the naiveBayes classifier
-		classifier = nltk.NaiveBayesClassifier.train(train_set)
+		#classifier = nltk.NaiveBayesClassifier.train(train_set)
+		#with open('../Src/Classifiers/dumpedGenderClassifier.pkl', 'wb') as genderFile:
+			#pickle.dump(classifier, genderFile)
+		with open('../Src/Classifiers/dumpedGenderClassifier.pkl', 'rb') as genderFile:
+			classifier = pickle.load(genderFile)
+			
+
+
 
     	# Test out the classifier with few samples outside of training set
-		print(classifier.classify(self.genderFeatures("Adam")))
+		gender = classifier.classify(self.genderFeatures(nameToFindGender))
 		#print(classifier.classify(self.genderFeatures("trinity")))
 
 		#Test the accuracy of the classifier on the test data
-		print(nltk.classify.accuracy(classifier, test_set))  # returns 0.78 for now
+		accuracy = nltk.classify.accuracy(classifier, test_set) # returns 0.78 for now
 
     # examine classifier to determine which feature is most effective for
     # distinguishing the name's gender
-		print(classifier.show_most_informative_features(5))
+		#print(classifier.show_most_informative_features(5))
 
-if __name__ == '__main__':
-	genderClass = GenderClassify()
-	genderClass.genderClasify()
+		returned = [gender, accuracy]
+		return returned

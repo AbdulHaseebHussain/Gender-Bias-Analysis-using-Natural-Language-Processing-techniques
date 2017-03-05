@@ -10,26 +10,33 @@ import nltk.tag.brill as brill
 import nltk.tag.brill_trainer as bt
 from nltk.tbl.template import Template 
 from nltk.tokenize import sent_tokenize, word_tokenize
+import pickle
 
 
 class PartOfSpeechTagging:
 
 	def customTagging(self, dataToTag):
 
-		trainingData = treebank.tagged_sents()
+		#trainingData = treebank.tagged_sents()
 		testData = brown.tagged_sents()
-		defaultTagger = DefaultTagger('NN')
-		#perceptionTagger = PerceptronTagger()
-		affixTagger = nltk.AffixTagger(trainingData, affix_length=-2, min_stem_length=3, backoff=defaultTagger)
-		unigramTagger = UnigramTagger(trainingData, backoff=affixTagger)
-		bigramTagger = BigramTagger(trainingData, backoff=unigramTagger)
-		trigramTagger = TrigramTagger(trainingData, backoff=bigramTagger)
+		#defaultTagger = DefaultTagger('NN')
+		#affixTagger = nltk.AffixTagger(trainingData, affix_length=-2, min_stem_length=3, backoff=defaultTagger)
+		#unigramTagger = UnigramTagger(trainingData, backoff=affixTagger)
+		#bigramTagger = BigramTagger(trainingData, backoff=unigramTagger)
+		#trigramTagger = TrigramTagger(trainingData, backoff=bigramTagger)
 
-		Template._cleartemplates()
-		templates = fntbl37()
+		#Template._cleartemplates()
+		#templates = fntbl37()
 
-		brillTagger = bt.BrillTaggerTrainer(trigramTagger, templates, trace=3)
-		brillTagger = brillTagger.train(trainingData, max_rules=250)
+		#brillTagger = bt.BrillTaggerTrainer(trigramTagger, templates, trace=3)
+		#brillTagger = brillTagger.train(trainingData, max_rules=250)
+
+		#with open('../Src/Taggers/brillTagger.pkl', 'wb') as taggingFile:
+			#pickle.dump(brillTagger, taggingFile)
+
+		with open('../Src/Taggers/brillTagger.pkl', 'rb') as taggingFile:
+			brillTagger = pickle.load(taggingFile)		
+
 		evaluation = brillTagger.evaluate(testData)
 		tagData = brillTagger.tag(dataToTag)
 		print(evaluation)
