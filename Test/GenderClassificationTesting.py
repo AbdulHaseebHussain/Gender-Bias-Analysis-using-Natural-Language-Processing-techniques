@@ -10,9 +10,7 @@ class GenderClassificationTestCase(unittest.TestCase):
 		genderClassification = GenderClassify()
 		genderAccuracy = genderClassification.genderClassify('Adam')[1]
 		print(genderAccuracy)
-		self.assertTrue(genderAccuracy>0.65)
-
-
+		self.assertTrue(genderAccuracy>0.7)
 
 	def testFemale(self):
 		genderClassification = GenderClassify()
@@ -24,7 +22,6 @@ class GenderClassificationTestCase(unittest.TestCase):
 		self.assertCountEqual(females, ['female', 'female', 'female', 'female'])
 
 	def testMale(self):
-
 		genderClassification = GenderClassify()
 		firstMale = genderClassification.genderClassify("Abdul")
 		secondMale = genderClassification.genderClassify("Apostolos")

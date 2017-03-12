@@ -7,25 +7,25 @@ from GenderBias import GenderBiased
 class GenderBiasTestCase(unittest.TestCase):
 
 	def testPositiveMaleBias(self):
-		sentences = 'Thomas Smith was a man of upstanding character and grace. Anna Smith was a women of terrible character.'
+		sentences = 'It is said Thomas Jones was a man of upstanding character and grace. It is said Anna Smith was a women of terrible character.'
 		gb = GenderBiased()
 		malePercentageSentiment = gb.assessBias(sentences)[0]
 		self.assertTrue(malePercentageSentiment[0]==100)
 
 	def testNegativeMaleBias(self):
-		sentences = 'Thomas Smith was a man of upstanding character and grace. Anna Smith was a women of terrible character.'
+		sentences = 'It is said Thomas Jones was a man of upstanding character and grace. It is said Anna Smith was a women of terrible character.'
 		gb = GenderBiased()
 		malePercentageSentiment = gb.assessBias(sentences)[0]
 		self.assertTrue(malePercentageSentiment[1]==0)
 
 	def testPositiveFemaleBias(self):
-		sentences = 'Thomas Smith was a man of upstanding character and grace. Anna Smith was a women of terrible character.'
+		sentences = 'It is said Thomas Jones was a man of upstanding character and grace. It is said Anna Smith was a women of terrible character.'
 		gb = GenderBiased()
 		femalePercentageSentiment = gb.assessBias(sentences)[1]
 		self.assertTrue(femalePercentageSentiment[0]==0)
 
 	def testNegativeFemaleBias(self):
-		sentences = 'Thomas Smith was a man of upstanding character and grace. Anna Smith was a women of terrible character.'
+		sentences = 'It is said Thomas Jones was a man of upstanding character and grace. It is said Anna Smith was a women of terrible character.'
 		gb = GenderBiased()
 		femalePercentageSentiment = gb.assessBias(sentences)[1]
 		self.assertTrue(femalePercentageSentiment[1]==100)

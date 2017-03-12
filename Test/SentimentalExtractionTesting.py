@@ -2,7 +2,7 @@ import unittest
 import sys
 import os
 sys.path.append(os.path.join('..', 'Src'))
-from sentimentalExtraction import SentimentExtraction
+from SentimentalExtraction import SentimentExtraction
 
 
 class SentimentExtractionTestCase(unittest.TestCase):
@@ -15,7 +15,7 @@ class SentimentExtractionTestCase(unittest.TestCase):
 
 	def testStronglyPositiveSentiment(self):
 		sentimentClass = SentimentExtraction()
-		sentence = 'The prom was set in a beautiful venue with an marvellous stage'
+		sentence = 'The prom was set in a beautiful venue with a marvellous stage'
 		sentiment = sentimentClass.extractSentimentSentence(sentence)
 		self.assertEqual(sentiment[0], 'positive')
 
