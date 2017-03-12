@@ -4,7 +4,7 @@ sys.path.append(os.path.join('..', 'Src'))
 from Tagging import PartOfSpeechTagging
 from NamedEntityRecognition import NamedEntityRecognition
 from GenderClassification import GenderClassify
-from sentimentalExtraction import SentimentExtraction
+from SentimentalExtraction import SentimentExtraction
 from Tokenization import TextTokenization
 from collections import Counter
 
@@ -30,7 +30,6 @@ class GenderBiased:
 				personName.append(leaf[0])
 			personName = " ".join(personName)
 			persons.append(personName)
-		
 		return persons
 
 	def getSentencesOfPerson(self, sentences, person):
@@ -39,9 +38,7 @@ class GenderBiased:
 		personSentences = []
 		for sentence in tokenizedSentences:
 			if person in sentence:
-				print(sentence)
 				personSentences.append(sentence)
-
 		return personSentences
 
 	def getSentenceSentiment(self, sentences):
@@ -71,16 +68,14 @@ class GenderBiased:
 		gc = GenderClassify()
 		persons = self.initialization(sentences)
 
-		#personGenderSentences = []
 		maleSentiment = []
 		femaleSentiment = []
 
 		for person in persons:
 			genderOfPerson = gc.genderClassify(person)[0]
 			personSentences = self.getSentencesOfPerson(sentences, person)
-			#personGenderSentences.append([person, genderOfPerson, personSentences])
 			sentiment = self.getSentenceSentiment(personSentences)
-			if genderOfPerson is 'male':
+			if genderOfPerson == 'male':
 				maleSentiment.append(sentiment)
 			else:
 				femaleSentiment.append(sentiment)

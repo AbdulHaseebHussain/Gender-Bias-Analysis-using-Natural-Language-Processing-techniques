@@ -18,9 +18,9 @@ class GenderClassify:
 
     # Process the names through feature extractor
 		feature_sets = [(self.genderFeatures(n), gender) for (n, gender) in labeledNames]
-
+		split = int(len(labeledNames)*0.75)
     # Divide the feature sets into training and test sets
-		train_set, test_set = feature_sets[100:], feature_sets[:100]
+		train_set, test_set = feature_sets[:split], feature_sets[split:]
 
     # Train the naiveBayes classifier
 		#classifier = nltk.NaiveBayesClassifier.train(train_set)

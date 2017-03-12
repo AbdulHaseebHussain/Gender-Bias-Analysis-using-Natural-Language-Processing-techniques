@@ -1,5 +1,4 @@
+number = 100;
 
 
-
-if __name__ == '__main__':
-	print('Hello World')
+print(number * 0.25)
